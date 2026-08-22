@@ -10,15 +10,14 @@
 <script>
 (async()=>{
   const ORIGIN='https://funvaluetours-acbhdt2xg-konyaalti-tours.vercel.app';
-  const HAJJ='https://raw.githubusercontent.com/konyaaltigroup-stack/funvaluetours-public/main/assets/button12-hajj-umrah.webp';
+  const HAJJ='https://konyaaltigroup-stack.github.io/funvaluetours-public/assets/button12-hajj-umrah.webp?v=20260823-0025';
   try{
-    const res=await fetch(ORIGIN+'/index-original.html?v=public-hajj-1',{cache:'no-store'});
+    const res=await fetch(ORIGIN+'/index-original.html?v=public-hajj-2',{cache:'no-store'});
     if(!res.ok) throw new Error('Source HTTP '+res.status);
     let h=await res.text();
     h=h.replace('<head>','<head><base href="'+ORIGIN+'/">');
     const patch=`(()=>{
       const cards=document.querySelectorAll('.rgrid .svc');
-      const button12Card=cards.length>=12?cards[11]:null;
 
       if(cards.length>=4){
         const image4=cards[3].querySelector('.svc-logo');
@@ -43,6 +42,10 @@
       function isVisasResidence(card){
         const text=normalizedText(card);
         return (text.includes('التأشيرات')&&text.includes('الإقامة'))||(text.includes('visa')&&text.includes('residen'));
+      }
+      function isConsultationsOrHajjUmrah(card){
+        const text=normalizedText(card);
+        return text.includes('الاستشارات')||text.includes('الحج والعمرة')||text.includes('consult')||(text.includes('hajj')&&text.includes('umrah'));
       }
       function swapCards(a,b){
         if(!a||!b||a===b||a.parentNode!==b.parentNode)return false;
@@ -77,7 +80,8 @@
         }
       }
       function fixHajjUmrah(){
-        const card=button12Card;
+        const serviceCards=[...document.querySelectorAll('.rgrid .svc')];
+        const card=serviceCards.find(isConsultationsOrHajjUmrah);
         if(!card)return;
         const label=card.querySelector('b');
         if(label)label.textContent='الحج والعمرة';
