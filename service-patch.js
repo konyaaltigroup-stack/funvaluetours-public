@@ -12,7 +12,7 @@
   }
 
   const APARTMENTS_SRC = 'https://funvaluetours-acbhdt2xg-konyaalti-tours.vercel.app/assets/button5-apartments.webp?v=20260822-2210';
-  const HAJJ_UMRAH_SRC = 'https://konyaaltigroup-stack.github.io/funvaluetours-public/assets/button12-hajj-umrah.webp?v=20260823-0015';
+  const HAJJ_UMRAH_SRC = 'https://funvaluetours-acbhdt2xg-konyaalti-tours.vercel.app/assets/button12-hajj-umrah.webp?v=20260822-2237';
 
   function normalizedText(card) {
     return (card?.textContent || '').replace(/\s+/g, ' ').trim().toLowerCase();
